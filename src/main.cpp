@@ -17,6 +17,9 @@
 #	include <unistd.h>
 #endif
 
+#include "json/json.h"
+#include <fstream>
+
 using std::cerr;
 using std::cout;
 using std::vector;
@@ -44,7 +47,12 @@ int main(int argc, char *argv[])
 	int nRet = 0;
 	try
 	{
-		cout << "executed\n";
+		cout << "executing...\n";
+		Json::Value root;
+		std::ifstream config_doc("config_doc.json", std::ifstream::binary);
+		config_doc >> root;
+		cout << "my-encoding=" << root.get("my-encoding", "UTF-32" ).asString() << "\n";
+		cout << "executed.\n";
 	}
 	catch(const std::exception& e)
 	{
