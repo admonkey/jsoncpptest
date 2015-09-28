@@ -48,10 +48,27 @@ int main(int argc, char *argv[])
 	try
 	{
 		cout << "executing...\n";
+		/*
+		// Read JSON file
 		Json::Value root;
 		std::ifstream config_doc("config_doc.json", std::ifstream::binary);
 		config_doc >> root;
 		cout << "my-encoding=" << root.get("my-encoding", "UTF-32" ).asString() << "\n";
+		*/
+		
+		// Write JSON file
+		vector<int> v;
+		for (int i=0; i < 6; i++)
+			v.push_back(i);
+		Json::Value array;
+		for (int i=0; i<v.size(); i++)
+			array.append(v[i]);
+		// write in a nice readible way
+		Json::StyledWriter styledWriter;
+		//std::cout << styledWriter.write(array);
+		std::ofstream test("test.json", std::ofstream::binary);
+		test << styledWriter.write(array);
+		
 		cout << "executed.\n";
 	}
 	catch(const std::exception& e)
